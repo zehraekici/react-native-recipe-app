@@ -1,6 +1,6 @@
 # React Native Yemek Tarifi Uygulaması
 
-Bu uygulama React Native ile geliştirilmiş basit bir yemek tarifi uygulamasıdır. 
+- Bu uygulama React Native ile geliştirilmiş basit bir yemek tarifi uygulamasıdır. 
 ---
 
 ## Demo Videosu
