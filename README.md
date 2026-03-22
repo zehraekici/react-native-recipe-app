@@ -23,32 +23,6 @@
 - React Navigation
 
 ---
-## Swagger (API Dokümantasyonu)
-
-Backend API, **Swagger (OpenAPI)** desteği ile birlikte gelir.  
-Swagger arayüzü sayesinde tüm endpoint’ler, parametreler ve response yapıları tarayıcı üzerinden görüntülenebilir ve test edilebilir.
-
-Backend çalışır durumdayken Swagger arayüzüne şu adresten erişilebilir:
-
-```text
-http://localhost:5050/docs
-```
----
-
-
-### Kurulum ve Çalıştırma
-
-```
-
-```
-```
-
-```
-
-
-
----
-
 
 ##  Kurulum ve Çalıştırma
 
@@ -60,12 +34,6 @@ npm install
 ### 2) Projeyi başlat
 ```
 npx expo start
-```
-
-### 3) Uygulamayı çalıştır
-```dart
-sqfliteFfiInit();
-databaseFactory = databaseFactoryFfi;
 ```
 
 ---
