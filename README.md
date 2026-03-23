@@ -3,8 +3,8 @@
 - Bu uygulama React Native ile geliştirilmiş basit bir yemek tarifi uygulamasıdır. 
 ---
 
-## Demo Videosu
-
+## Videolar
+https://drive.google.com/file/d/189Ai_3mF7xolA_qKlMy0rgLo7keM6DRK/view?usp=sharing
 
 ---
 
