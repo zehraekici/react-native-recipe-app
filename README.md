@@ -8,6 +8,10 @@
 
 https://drive.google.com/file/d/189Ai_3mF7xolA_qKlMy0rgLo7keM6DRK/view?usp=sharing
 
+22290061-ZehraEkici-IOS2Dersi-29032026-V2
+
+https://drive.google.com/file/d/1pBQY2yjcBfmKtG3guqtknAFIoXGnZJwq/view?usp=sharing
+
 ---
 
 ##  Ekranlar
