@@ -14,6 +14,8 @@ https://drive.google.com/file/d/1pBQY2yjcBfmKtG3guqtknAFIoXGnZJwq/view?usp=shari
 
 22290061-ZehraEkici-IOS2Dersi-04042026-V3
 
+https://drive.google.com/file/d/1Hxm8MbgSm-obLaRdtwhp2RwVdGBpkQPI/view?usp=sharing
+
 ---
 
 ##  Ekranlar
