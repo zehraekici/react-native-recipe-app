@@ -2,13 +2,13 @@ import React from "react";
 import { View, Text, Image, TouchableOpacity, StyleSheet } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
-export default function RecipeCard({ item, onPress, onFavorite }) {
+export default function RecipeCard({ recipe, onPress, onFavorite }) {
   return (
     <TouchableOpacity style={styles.card} onPress={onPress}>
-      <Image source={item.image} style={styles.image} />
+      <Image source={{ uri: recipe.image }} style={styles.image} />
 
       <View style={styles.overlay}>
-        <Text style={styles.title}>{item.title}</Text>
+        <Text style={styles.title}>{recipe.title}</Text>
 
         <TouchableOpacity onPress={onFavorite}>
           <Ionicons name="heart-outline" size={24} color="white" />

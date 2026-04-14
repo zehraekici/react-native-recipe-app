@@ -1,11 +1,20 @@
 const express = require("express"); // Express.js framework’ünü projeye alıyor
+
+console.log("Loading recipe routes...");
+
 const recipeRoutes = require("./routes/recipe.routes");
+
+console.log("Recipe routes loaded");
 
 const app = express(); // express instance == backend uygulamasını başlat
 
 app.use(express.json()); // gelen request body'yi JSON a çevir
 
 app.use("/recipes", recipeRoutes); // /recipes ile başlayan tüm istekleri recipe.routes.js dosyasına gönder
+
+app.get("/", (req, res) => {
+  res.send("Server works");
+});
 
 /* 
 ORNEK MAPPING 

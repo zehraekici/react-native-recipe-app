@@ -1,20 +1,44 @@
-import React from "react";
-import { View, Text, Image, ScrollView, StyleSheet } from "react-native";
+import React, { useEffect, useState } from "react";
+import { View, Text, Image, ScrollView, StyleSheet, ActivityIndicator } from "react-native";
+import { fetchRecipeById } from "../services/api";
 
 export default function DetailScreen({ route }) {
-  const { recipe } = route.params;
+  const { id } = route.params;
+
+  const [recipe, setRecipe] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function load() {
+      try {
+        const data = await fetchRecipeById(id);
+        setRecipe(data);
+      } catch (err) {
+        console.error(err);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    load();
+  }, [id]);
+
+  if (loading) return <ActivityIndicator />;
+  if (!recipe) return <Text>Recipe not found</Text>;
 
   return (
     <ScrollView style={styles.container}>
-      <Image source={recipe.image} style={styles.image} />
+      <Image source={{ uri: recipe.image }} style={styles.image} />
 
       <Text style={styles.title}>{recipe.title}</Text>
 
       <Text style={styles.section}>Ingredients</Text>
-      <Text>- Item 1\n- Item 2\n- Item 3</Text>
+      {recipe.ingredients?.map((item, index) => (
+        <Text key={index}>- {item}</Text>
+      ))}
 
       <Text style={styles.section}>Instructions</Text>
-      <Text>Step 1...\nStep 2...\nStep 3...</Text>
+      <Text>{recipe.instructions}</Text>
     </ScrollView>
   );
 }

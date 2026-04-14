@@ -6,7 +6,7 @@ exports.transformMeal = (meal) => {
     const meas = meal[`strMeasure${i}`];
 
     if (ing && ing.trim()) {
-      ingredients.push({ name: ing, measure: meas });
+      ingredients.push(`${meas} ${ing}`);
     }
   }
 

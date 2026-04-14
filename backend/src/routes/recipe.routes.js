@@ -7,3 +7,4 @@ router.get("/", controller.getRecipes); // GET /recipes
 router.get("/:id", controller.getRecipeById);
 
 module.exports = router;
+
