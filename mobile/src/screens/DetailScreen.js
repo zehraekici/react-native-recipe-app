@@ -1,8 +1,19 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, Image, ScrollView, StyleSheet, ActivityIndicator } from "react-native";
-import { fetchRecipeById } from "../services/api";
+import {
+  View,
+  Text,
+  ScrollView,
+  StyleSheet,
+  ActivityIndicator,
+  TouchableOpacity,
+  Image,
+} from "react-native";
+import { Ionicons } from "@expo/vector-icons";
 
-export default function DetailScreen({ route }) {
+import { fetchRecipeById } from "../services/api";
+import { AppColors } from "../AppColors";
+
+export default function DetailScreen({ route, navigation }) {
   const { id } = route.params;
 
   const [recipe, setRecipe] = useState(null);
@@ -23,29 +34,100 @@ export default function DetailScreen({ route }) {
     load();
   }, [id]);
 
-  if (loading) return <ActivityIndicator />;
+  if (loading) return <ActivityIndicator style={{ flex: 1 }} />;
   if (!recipe) return <Text>Recipe not found</Text>;
 
   return (
-    <ScrollView style={styles.container}>
-      <Image source={{ uri: recipe.image }} style={styles.image} />
+    <View style={{ flex: 1, backgroundColor: AppColors.beige }}>
+      
+      {}
+      <View style={styles.header}>
+        <TouchableOpacity onPress={() => navigation.goBack()}>
+          <Ionicons name="arrow-back" size={24} />
+        </TouchableOpacity>
 
-      <Text style={styles.title}>{recipe.title}</Text>
+        <Text style={styles.headerTitle} numberOfLines={1}>
+          {recipe.title}
+        </Text>
 
-      <Text style={styles.section}>Ingredients</Text>
-      {recipe.ingredients?.map((item, index) => (
-        <Text key={index}>- {item}</Text>
-      ))}
+        <View style={styles.heart}>
+          <Ionicons name="heart" size={18} color="white" />
+        </View>
+      </View>
 
-      <Text style={styles.section}>Instructions</Text>
-      <Text>{recipe.instructions}</Text>
-    </ScrollView>
+      <ScrollView>
+        {/*IMAGE */}
+        <Image source={{ uri: recipe.image }} style={styles.image} />
+
+        {/*CONTENT */}
+        <View style={styles.container}>
+          
+          <Text style={styles.text}>{recipe.instructions}</Text>
+
+          <Text style={styles.section}>Ingredients</Text>
+
+          {recipe.ingredients?.map((item, index) => (
+            <Text key={index} style={styles.ingredient}>
+              • {item}
+            </Text>
+          ))}
+        </View>
+      </ScrollView>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: { padding: 15 },
-  image: { width: "100%", height: 250, borderRadius: 10 },
-  title: { fontSize: 24, fontWeight: "bold", marginVertical: 10 },
-  section: { fontSize: 18, marginTop: 15, fontWeight: "600" },
+  header: {
+    paddingTop: 32,
+    paddingHorizontal: 16,
+    paddingBottom: 10,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+  },
+
+  headerTitle: {
+    fontSize: 20,
+    fontWeight: "600",
+    color: AppColors.darkGreen,
+    flex: 1,
+    textAlign: "center",
+    marginHorizontal: 10,
+  },
+
+  heart: {
+    backgroundColor: AppColors.mediumGreen,
+    padding: 10,
+    borderRadius: 50,
+  },
+
+  image: {
+    width: "100%",
+    height: 250,
+  },
+
+  container: {
+    padding: 16,
+  },
+
+  text: {
+    fontSize: 16,
+    lineHeight: 24,
+    color: AppColors.brown,
+  },
+
+  section: {
+    fontSize: 20,
+    fontWeight: "700",
+    color: AppColors.darkGreen,
+    marginTop: 20,
+    marginBottom: 10,
+  },
+
+  ingredient: {
+    fontSize: 16,
+    marginBottom: 6,
+    color: AppColors.brown,
+  },
 });

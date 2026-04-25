@@ -11,3 +11,8 @@ exports.getMealById = async (id) => {
   const res = await axios.get(`${BASE_URL}/lookup.php?i=${id}`);
   return res.data.meals?.[0];
 };
+
+exports.getRandomMeal = async () => {
+  const res = await axios.get(`${BASE_URL}/random.php`);
+  return res.data.meals?.[0];
+};
