@@ -17,3 +17,14 @@ exports.getRecipeById = async (req, res, next) => {
     next(err);
   }
 };
+
+// YENI
+
+exports.getRandomRecipes = async (req, res, next) => {
+  try {
+    const data = await service.getRecipes(); // senin mevcut fonksiyonun
+    res.json(data);
+  } catch (err) {
+    next(err);
+  }
+};

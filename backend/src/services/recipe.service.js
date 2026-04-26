@@ -2,17 +2,16 @@ const client = require("../external/mealdb.client");
 const { transformMeal } = require("../utils/transform");
 
 exports.getRecipes = async () => {
-  const mealsMap = new Map();
+  const meals = [];
 
-  // 5 random meal 
-  while (mealsMap.size < 5) {
+  for (let i = 0; i < 5; i++) {
     const meal = await client.getRandomMeal();
     if (meal) {
-      mealsMap.set(meal.idMeal, meal);
+      meals.push(meal);
     }
   }
 
-  return Array.from(mealsMap.values()).map(transformMeal);
+  return meals.map(transformMeal);
 };
 
 exports.getRecipeById = async (id) => {

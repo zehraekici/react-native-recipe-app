@@ -31,6 +31,7 @@ function Tabs() {
         name="Favorites" 
         component={FavoritesScreen}
         options={{
+          headerShown: false, 
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="heart-outline" size={size} color={color} />
           ),

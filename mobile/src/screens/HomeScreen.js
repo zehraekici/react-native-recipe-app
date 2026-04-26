@@ -9,19 +9,34 @@ import {
 import { Ionicons } from "@expo/vector-icons";
 
 import RecipeCard from "../components/RecipeCard";
-import { fetchRecipes } from "../services/api";
+import { fetchRecipes, fetchFavorites, toggleFavorite } from "../services/api";
 import { AppColors } from "../AppColors"; 
 
 export default function HomeScreen({ navigation }) {
   const [recipes, setRecipes] = useState([]);
+  const [favorites, setFavorites] = useState([]);
   const [loading, setLoading] = useState(false);
+
+  async function handleToggle(recipe) {
+    await toggleFavorite(recipe);
+
+    setFavorites(prev =>
+      prev.includes(recipe.id)
+        ? prev.filter(id => id !== recipe.id)
+        : [...prev, recipe.id]
+    );
+  }
 
   // API çağrısı
   const loadRecipes = async () => {
     try {
       setLoading(true);
       const data = await fetchRecipes();
+      const favs = await fetchFavorites();          // 👈 EKLE
+
       setRecipes(data);
+      setFavorites(favs.map(f => f.id));   
+
     } catch (err) {
       console.error("ERROR:", err);
     } finally {
@@ -113,6 +128,8 @@ export default function HomeScreen({ navigation }) {
         renderItem={({ item }) => (
           <RecipeCard
             recipe={item}
+            isFav={favorites.includes(item.id)}         // EKLE
+            onToggleFav={() => handleToggle(item)}      // EKLE
             onPress={() =>
               navigation.navigate("Detail", { id: item.id })
             }

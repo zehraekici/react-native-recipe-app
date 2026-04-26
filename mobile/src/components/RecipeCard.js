@@ -1,8 +1,9 @@
 import React from "react";
 import { View, Text, Image, TouchableOpacity, StyleSheet } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
+import { AppColors } from "../AppColors"; 
 
-export default function RecipeCard({ recipe, onPress, onFavorite }) {
+export default function RecipeCard({ recipe, onPress, onToggleFav, isFav}) {
   return (
     <TouchableOpacity style={styles.card} onPress={onPress}>
       <Image source={{ uri: recipe.image }} style={styles.image} />
@@ -10,8 +11,12 @@ export default function RecipeCard({ recipe, onPress, onFavorite }) {
       <View style={styles.overlay}>
         <Text style={styles.title}>{recipe.title}</Text>
 
-        <TouchableOpacity onPress={onFavorite}>
-          <Ionicons name="heart-outline" size={24} color="white" />
+        <TouchableOpacity onPress={onToggleFav}>
+          <Ionicons
+            name={isFav ? "heart" : "heart-outline"}
+            size={24}
+            color={AppColors.darkGreen} 
+          />
         </TouchableOpacity>
       </View>
     </TouchableOpacity>

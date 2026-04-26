@@ -1,3 +1,5 @@
+require("dotenv").config(); // YENI 
+
 const app = require("./app");
 
 const PORT = 3000;
@@ -17,3 +19,10 @@ const server = app.listen(PORT, "0.0.0.0", () => {
 server.on("error", (err) => {
   console.error("SERVER ERROR:", err);
 });
+
+//YENI
+const pool = require("./db");
+
+pool.query("SELECT NOW()")
+  .then(res => console.log("DB OK:", res.rows[0]))
+  .catch(err => console.error("DB ERROR:", err));
