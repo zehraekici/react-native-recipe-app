@@ -1,42 +1,22 @@
-import React, { useCallback , useState } from "react";
+import React, { useState, useEffect } from "react";
 import { View, Text, TextInput, FlatList, ActivityIndicator } from "react-native";
-import { useFocusEffect } from "@react-navigation/native";
-
 
 import RecipeFavoriteCard from "../components/RecipeFavoriteCard";
-import { fetchFavorites, toggleFavorite } from "../services/api";
 import { AppColors } from "../AppColors";
+import { useFavorites } from "../context/FavoritesContext";
 
 export default function FavoritesScreen({ navigation }) {
-  const [favorites, setFavorites] = useState([]);
+  const { favorites, toggle, loadingFavs } = useFavorites();
+
   const [filtered, setFiltered] = useState([]);
   const [search, setSearch] = useState("");
-  const [loading, setLoading] = useState(true);
 
-  // useEffect(() => {
-  //   load();
-  // }, []);
+  // favorites değişince filtreyi güncelle
+  useEffect(() => {
+    setFiltered(favorites);
+  }, [favorites]);
 
-  useFocusEffect(
-    useCallback(() => {
-      load(); // her ekrana gelince çalışır
-    }, [])
-  );
-
-  async function load() {
-    try {
-      setLoading(true);
-      const data = await fetchFavorites();
-      setFavorites(data);
-      setFiltered(data);
-    } catch (err) {
-      console.error(err);
-    } finally {
-      setLoading(false);
-    }
-  }
-
-    function handleSearch(text) {
+  function handleSearch(text) {
     setSearch(text);
 
     const filteredData = favorites.filter(item =>
@@ -46,16 +26,11 @@ export default function FavoritesScreen({ navigation }) {
     setFiltered(filteredData);
   }
 
-    async function handleToggle(recipe) {
-    await toggleFavorite(recipe);
-    load(); // DB’den tekrar çek
-  }
-
-    if (loading) {
+  if (loadingFavs) {
     return <ActivityIndicator style={{ flex: 1 }} />;
   }
 
-    return (
+  return (
     <View style={{ flex: 1, backgroundColor: AppColors.beige }}>
 
       {/* HEADER */}
@@ -96,21 +71,17 @@ export default function FavoritesScreen({ navigation }) {
         data={filtered}
         numColumns={2}
         keyExtractor={(item) => item.id.toString()}
-
         contentContainerStyle={{
           paddingHorizontal: 10,
           paddingBottom: 120,
         }}
-
         renderItem={({ item }) => (
           <RecipeFavoriteCard
             image={item.image}
             title={item.title}
             instructions={item.instructions}
-            onTap={() =>
-              navigation.navigate("Detail", { id: item.id })
-            }
-            onFavTap={() => handleToggle(item)}
+            onTap={() => navigation.navigate("Detail", { id: item.id })}
+            onFavTap={() => toggle(item)}   // ✅ DOĞRU
           />
         )}
       />

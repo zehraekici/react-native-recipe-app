@@ -12,12 +12,15 @@ import { Ionicons } from "@expo/vector-icons";
 
 import { fetchRecipeById } from "../services/api";
 import { AppColors } from "../AppColors";
+import { useFavorites } from "../context/FavoritesContext";
+
 
 export default function DetailScreen({ route, navigation }) {
   const { id } = route.params;
 
   const [recipe, setRecipe] = useState(null);
   const [loading, setLoading] = useState(true);
+  const { isFavorite, toggle } = useFavorites();
 
   useEffect(() => {
     async function load() {
@@ -50,9 +53,13 @@ export default function DetailScreen({ route, navigation }) {
           {recipe.title}
         </Text>
 
-        <View style={styles.heart}>
-          <Ionicons name="heart" size={18} color="white" />
-        </View>
+        <TouchableOpacity onPress={() => toggle(recipe)}>
+        <Ionicons
+          name={isFavorite(recipe.id) ? "heart" : "heart-outline"}
+          size={24}
+          color={isFavorite(recipe.id) ? "red" : "gray"}
+        />
+      </TouchableOpacity>
       </View>
 
       <ScrollView>
