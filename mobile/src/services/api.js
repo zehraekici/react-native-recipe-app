@@ -12,6 +12,21 @@ export async function fetchRecipeById(id) {
   return res.json();
 }
 
+// SEARCH
+export async function searchRecipes(query) {
+  const res = await fetch(
+    `${BASE_URL}/recipes?q=${encodeURIComponent(query)}`
+  );
+
+  const data = await res.json();
+
+  if (!res.ok) {
+    throw new Error(data.message || "Search failed");
+  }
+
+  return data;
+}
+
 // 🔴 FAVORITES
 export async function fetchFavorites() {
   const res = await fetch(`${BASE_URL}/favorites`);

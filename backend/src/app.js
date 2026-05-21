@@ -30,7 +30,7 @@ const options = {
     },
     servers: [
       {
-        url: "http://localhost:3000", // 🔴 EN KRİTİK SATIR
+        url: "http://localhost:3000", // N KRİTİK SATIR
       },
     ],
   },

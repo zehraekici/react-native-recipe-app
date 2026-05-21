@@ -5,31 +5,24 @@ import {
   TouchableOpacity,
   View,
   Text,
+  Modal,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
 import RecipeCard from "../components/RecipeCard";
-import { fetchRecipes, fetchFavorites, toggleFavorite } from "../services/api";
-import { AppColors } from "../AppColors"; 
+import SearchModal from "../components/SearchModal";
+
+import { fetchRecipes } from "../services/api";
+import { AppColors } from "../AppColors";
 import { useFavorites } from "../context/FavoritesContext";
 
 export default function HomeScreen({ navigation }) {
   const [recipes, setRecipes] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [searchVisible, setSearchVisible] = useState(false);
 
-  const { isFavorite, toggle } = useFavorites(); // yeniii
+  const { isFavorite, toggle } = useFavorites();
 
-  // async function handleToggle(recipe) {
-  //   await toggleFavorite(recipe);
-
-  //   setFavorites(prev =>
-  //     prev.includes(recipe.id)
-  //       ? prev.filter(id => id !== recipe.id)
-  //       : [...prev, recipe.id]
-  //   );
-  // }
-
-  // API çağrısı
   const loadRecipes = async () => {
     try {
       setLoading(true);
@@ -46,12 +39,10 @@ export default function HomeScreen({ navigation }) {
     loadRecipes();
   }, []);
 
-  // ilk açılış
   if (loading && recipes.length === 0) {
     return <ActivityIndicator style={{ flex: 1 }} />;
   }
 
-  // 
   const Header = () => (
     <View
       style={{
@@ -80,7 +71,6 @@ export default function HomeScreen({ navigation }) {
         What are you cooking today?
       </Text>
 
-      {/* ikonlar */}
       <View
         style={{
           position: "absolute",
@@ -90,7 +80,7 @@ export default function HomeScreen({ navigation }) {
           gap: 10,
         }}
       >
-        <View
+        <TouchableOpacity
           style={{
             backgroundColor: AppColors.lightGreen,
             padding: 12,
@@ -98,9 +88,10 @@ export default function HomeScreen({ navigation }) {
           }}
         >
           <Ionicons name="add" size={20} />
-        </View>
+        </TouchableOpacity>
 
-        <View
+        <TouchableOpacity
+          onPress={() => setSearchVisible(true)}
           style={{
             backgroundColor: AppColors.lightGreen,
             padding: 12,
@@ -108,7 +99,7 @@ export default function HomeScreen({ navigation }) {
           }}
         >
           <Ionicons name="search" size={20} />
-        </View>
+        </TouchableOpacity>
       </View>
     </View>
   );
@@ -118,7 +109,7 @@ export default function HomeScreen({ navigation }) {
       <FlatList
         data={recipes}
         keyExtractor={(item) => item.id.toString()}
-        ListHeaderComponent={Header} 
+        ListHeaderComponent={Header}
         contentContainerStyle={{
           paddingHorizontal: 16,
           paddingBottom: 120,
@@ -127,17 +118,14 @@ export default function HomeScreen({ navigation }) {
           <RecipeCard
             recipe={item}
             isFav={isFavorite(item.id)}
-            onToggleFav={() => toggle(item)} // ✅ context
-            onPress={() =>
-              navigation.navigate("Detail", { id: item.id })
-            }
+            onToggleFav={() => toggle(item)}
+            onPress={() => navigation.navigate("Detail", { id: item.id })}
           />
         )}
         refreshing={loading}
         onRefresh={loadRecipes}
       />
 
-      {/* Refresh butonu */}
       <TouchableOpacity
         onPress={loadRecipes}
         style={{
@@ -152,6 +140,30 @@ export default function HomeScreen({ navigation }) {
       >
         <Ionicons name="refresh" size={24} />
       </TouchableOpacity>
+
+      <Modal
+        visible={searchVisible}
+        animationType="slide"
+        transparent
+        onRequestClose={() => setSearchVisible(false)}
+      >
+        <TouchableOpacity
+          activeOpacity={1}
+          onPress={() => setSearchVisible(false)}
+          style={{
+            flex: 1,
+            backgroundColor: "rgba(0,0,0,0.35)",
+            justifyContent: "flex-end",
+          }}
+        >
+          <TouchableOpacity activeOpacity={1}>
+            <SearchModal
+              navigation={navigation}
+              onClose={() => setSearchVisible(false)}
+            />
+          </TouchableOpacity>
+        </TouchableOpacity>
+      </Modal>
     </View>
   );
 }
