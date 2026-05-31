@@ -4,6 +4,12 @@
 ---
 
 ## Videolar
+
+# ÖNEMLİ NOT !!!
+
+İlerleme videoları, dönem başında sunulan 7 haftalık proje planına uygun olarak hazırlanmıştır. Bu nedenle 7 video yer almaktadır. Projede raporda belirtilen özellikler gerçekleştirilmiştir haftalık plana uygun atılmıştır.
+
+
 22290061-ZehraEkici-IOS2Dersi-23032026-V1
 
 https://drive.google.com/file/d/189Ai_3mF7xolA_qKlMy0rgLo7keM6DRK/view?usp=sharing
@@ -30,7 +36,7 @@ https://drive.google.com/file/d/1jHZmQJxd2qUn9hnMTsTx-FflM6EKV-ag/view?usp=shari
 
 22290061-ZehraEkici-IOS2Dersi-29052026-V7
 
-
+https://drive.google.com/file/d/13NOZ7oQvIi8McQPT55BOn3oywY6VgshA/view?usp=sharing
 
 
 ---
