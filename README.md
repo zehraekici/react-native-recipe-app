@@ -5,7 +5,7 @@
 
 ## Videolar
 
-## Önemli Not:
+### Önemli Not:
 İlerleme videoları, dönem başında sunulan 7 haftalık proje planına uygun olarak hazırlanmıştır. Bu nedenle 7 video yer almaktadır. Projede raporda belirtilen özellikler gerçekleştirilmiştir haftalık plana uygun atılmıştır.
 
 
