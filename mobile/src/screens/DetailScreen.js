@@ -14,12 +14,30 @@ import { fetchRecipeById } from "../services/api";
 import { AppColors } from "../AppColors";
 import { useFavorites } from "../context/FavoritesContext";
 
+const formatInstructions = (text) => {
+  if (!text) return [];
+
+  const cleaned = text.trim();
+
+  if (cleaned.includes("\n")) {
+    return cleaned
+      .split(/\r?\n+/)
+      .map((item) => item.trim())
+      .filter((item) => item.length > 0);
+  }
+
+  return cleaned
+    .split(/(?<=\.)\s+/)
+    .map((item) => item.trim())
+    .filter((item) => item.length > 0);
+};
 
 export default function DetailScreen({ route, navigation }) {
   const { id } = route.params;
 
   const [recipe, setRecipe] = useState(null);
   const [loading, setLoading] = useState(true);
+
   const { isFavorite, toggle } = useFavorites();
 
   useEffect(() => {
@@ -42,11 +60,9 @@ export default function DetailScreen({ route, navigation }) {
 
   return (
     <View style={{ flex: 1, backgroundColor: AppColors.beige }}>
-      
-      {}
       <View style={styles.header}>
         <TouchableOpacity onPress={() => navigation.goBack()}>
-          <Ionicons name="arrow-back" size={24} />
+          <Ionicons name="arrow-back" size={24} color={AppColors.darkGreen} />
         </TouchableOpacity>
 
         <Text style={styles.headerTitle} numberOfLines={1}>
@@ -54,22 +70,27 @@ export default function DetailScreen({ route, navigation }) {
         </Text>
 
         <TouchableOpacity onPress={() => toggle(recipe)}>
-        <Ionicons
-          name={isFavorite(recipe.id) ? "heart" : "heart-outline"}
-          size={24}
-          color={isFavorite(recipe.id) ? "red" : "gray"}
-        />
-      </TouchableOpacity>
+          <Ionicons
+            name={isFavorite(recipe.id) ? "heart" : "heart-outline"}
+            size={24}
+            color={isFavorite(recipe.id) ? AppColors.darkGreen : "gray"}
+          />
+        </TouchableOpacity>
       </View>
 
-      <ScrollView>
-        {/*IMAGE */}
+      <ScrollView showsVerticalScrollIndicator={false}>
         <Image source={{ uri: recipe.image }} style={styles.image} />
 
-        {/*CONTENT */}
         <View style={styles.container}>
-          
-          <Text style={styles.text}>{recipe.instructions}</Text>
+          <Text style={styles.section}>Instructions</Text>
+
+          <View style={styles.instructionsBox}>
+            {formatInstructions(recipe.instructions).map((paragraph, index) => (
+              <Text key={index} style={styles.instructionsText}>
+                {paragraph}
+              </Text>
+            ))}
+          </View>
 
           <Text style={styles.section}>Ingredients</Text>
 
@@ -103,38 +124,40 @@ const styles = StyleSheet.create({
     marginHorizontal: 10,
   },
 
-  heart: {
-    backgroundColor: AppColors.mediumGreen,
-    padding: 10,
-    borderRadius: 50,
-  },
-
   image: {
     width: "100%",
     height: 250,
   },
 
   container: {
-    padding: 16,
-  },
-
-  text: {
-    fontSize: 16,
-    lineHeight: 24,
-    color: AppColors.brown,
+    paddingHorizontal: 16,
+    paddingTop: 18,
+    paddingBottom: 40,
   },
 
   section: {
-    fontSize: 20,
+    fontSize: 18,
     fontWeight: "700",
     color: AppColors.darkGreen,
-    marginTop: 20,
     marginBottom: 10,
+  },
+
+  instructionsBox: {
+    marginBottom: 8,
+  },
+
+  instructionsText: {
+    fontSize: 15,
+    lineHeight: 23,
+    color: AppColors.brown,
+    marginBottom: 14,
+    textAlign: "left",
   },
 
   ingredient: {
     fontSize: 16,
-    marginBottom: 6,
+    lineHeight: 23,
+    marginBottom: 7,
     color: AppColors.brown,
   },
 });

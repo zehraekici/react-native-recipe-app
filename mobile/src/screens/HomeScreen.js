@@ -80,7 +80,7 @@ export default function HomeScreen({ navigation }) {
           gap: 10,
         }}
       >
-        <TouchableOpacity
+        {/* <TouchableOpacity
           style={{
             backgroundColor: AppColors.lightGreen,
             padding: 12,
@@ -88,7 +88,7 @@ export default function HomeScreen({ navigation }) {
           }}
         >
           <Ionicons name="add" size={20} />
-        </TouchableOpacity>
+        </TouchableOpacity> */}
 
         <TouchableOpacity
           onPress={() => setSearchVisible(true)}
