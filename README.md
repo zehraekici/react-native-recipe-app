@@ -20,6 +20,17 @@ https://drive.google.com/file/d/1Hxm8MbgSm-obLaRdtwhp2RwVdGBpkQPI/view?usp=shari
 
 https://drive.google.com/file/d/1HGAaDFad8Nb-6d-gRRHulJxdzwW-E6uS/view?usp=sharing
 
+22290061-ZehraEkici-IOS2Dersi-07052026-V5
+
+https://drive.google.com/file/d/1oAJBAB19vne-45lYfcWU2tCFWvpAJDJW/view?usp=sharing
+
+22290061-ZehraEkici-IOS2Dersi-25052026-V6
+
+https://drive.google.com/file/d/1jHZmQJxd2qUn9hnMTsTx-FflM6EKV-ag/view?usp=sharing
+
+
+
+
 ---
 
 ##  Ekranlar
